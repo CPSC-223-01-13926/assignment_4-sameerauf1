@@ -60,26 +60,26 @@ def tot_rain(data, date):
 
 
 def report_daily(data, date):
-    display = "========================= DAILY REPORT ======================== \n"
+    display = "========================= DAILY REPORT ========================\n"
     display = display + "Date                      Time  Temperature  Humidity  Rainfall\n"
     display = display + "====================  ========  ===========  ========  ========\n"
     for key in data:
         if date == key[0:8]:
             m = calendar.month_name[int(
-                date[4:6])] + " " + str(int(date[6:8])) + "," + str(int(date[0:4]))
+                date[4:6])] + " " + str(int(date[6:8])) + ", " + str(int(date[0:4]))
             tm = key[8:10] + ":" + key[10:12] + ":" + key[12:14]  # time
             t = data[key]['t']
             h = data[key]['h']
             r = data[key]['r']
-            display += f'{m:22}{tm:8}{t:13}{h:10}{r:10} \n'  # potential bug
+            display += f'{m:22}{tm:8}{t:13}{h:10}{r:10}\n'  # potential bug
     return display
 
 
 def report_historical(data):
-    display = " 	============================== HISTORICAL REPORT ===========================\n"
-    display += "				  Minimum      Maximum   Minumum   Maximum     Total\n"
-    display += "	Date                  Temperature  Temperature  Humidity  Humidity  Rainfall\n"
-    display += "	====================  ===========  ===========  ========  ========  ========\n"
+    display = "============================== HISTORICAL REPORT ===========================\n"
+    display += "                          Minimum      Maximum   Minumum   Maximum     Total\n"
+    display += "Date                  Temperature  Temperature  Humidity  Humidity  Rainfall\n"
+    display += "====================  ===========  ===========  ========  ========  ========\n"
     h = ''
     for key in data:
         if h == key[0:8]:
@@ -88,12 +88,12 @@ def report_historical(data):
             h = key[0:8]
             # calendar.month_name returns a month string
             m = calendar.month_name[int(h[4:6])] + " " + \
-                str(int(h[6:8])) + "," + str(int(h[0:4]))
+                str(int(h[6:8])) + ", " + str(int(h[0:4]))
             min_temp = min_temperature(data, key[0:8])
             max_temp = max_temperature(data, key[0:8])
             min_hum = min_humidity(data, key[0:8])
             max_hum = max_humidity(data, key[0:8])
             rain = tot_rain(data, key[0:8])
-            #r = {rain:10.2f}
-            display += f'{m:20}{min_temp:13}{max_temp:13}{min_hum:10}{max_hum:10}{rain:10.2f}' + "/n"
+            # r = {rain:10.2f}
+            display += f'{m:20}{min_temp:13}{max_temp:13}{min_hum:10}{max_hum:10}{rain:10.2f}' + "\n"
     return display
